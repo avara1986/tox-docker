@@ -125,3 +125,9 @@ def tox_addoption(parser):
         help="List of ENVVAR=VALUE pairs that will be passed to all containers",
         default=[],
     )
+    parser.add_testenv_attribute(
+        name="dockerports",
+        type="line-list",
+        help="List of ENVVAR=VALUE pairs that will be passed to all containers",
+        default=[],
+    )
