@@ -22,6 +22,11 @@ def tox_runtest_pre(venv):
         environment[envvar] = value
         venv.envconfig.setenv[envvar] = value
 
+    ports = {}
+    for value in conf.dockerports:
+        port_key, _, port_value = value.partition("=")
+        ports[port_key] = port_value
+
     seen = set()
     for image in conf.docker:
         name, _, tag = image.partition(":")
@@ -47,6 +52,7 @@ def tox_runtest_pre(venv):
             container = docker.containers.run(
                 image,
                 detach=True,
+                ports = ports,
                 publish_all_ports=True,
                 environment=environment,
             )
